@@ -290,7 +290,9 @@
     var ul = el('ul');
     X.services.forEach(function (s) {
       var li = el('li');
-      var a = el('a', null, s.name + ' ' + s.phone);
+      /* "NHS 111" and "999" already contain their number, so don't repeat it */
+      var linkText = s.name.indexOf(s.phone) === -1 ? s.name + ' ' + s.phone : s.name;
+      var a = el('a', null, linkText);
       a.href = 'tel:' + s.phone.replace(/\s+/g, '');
       li.appendChild(a);
       li.appendChild(document.createTextNode(': ' + s.detail));
