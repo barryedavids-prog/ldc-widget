@@ -1,4 +1,4 @@
-# Promote staging to production. Run:  .\promote.ps1
+﻿# Promote staging to production. Run:  .\promote.ps1
 #
 # What it does:
 #   1. Checks you are on main and that staging has no uncommitted changes
@@ -9,7 +9,8 @@
 
 param([switch]$Yes)   # -Yes skips the confirmation question
 
-$ErrorActionPreference = 'Stop'
+# git writes harmless warnings to stderr; don't treat those as fatal. We check exit codes instead.
+$ErrorActionPreference = 'Continue'
 Set-Location $PSScriptRoot
 
 $branch = (git rev-parse --abbrev-ref HEAD).Trim()
@@ -31,7 +32,10 @@ robocopy staging prod /MIR /NFL /NDL /NJH /NJS /NP | Out-Null
 if ($LASTEXITCODE -ge 8) { throw "robocopy failed (exit code $LASTEXITCODE)" }
 
 git add prod
+if ($LASTEXITCODE -ne 0) { throw 'git add failed' }
 if (-not (git status --porcelain prod)) { Write-Host "prod already matches staging. Nothing to do."; exit 0 }
 
 git commit -m "Promote staging ($stagingCommit) to prod"
+if ($LASTEXITCODE -ne 0) { throw 'git commit failed' }
 Write-Host "Done. Review with 'git show --stat', then publish with 'git push'."
+
