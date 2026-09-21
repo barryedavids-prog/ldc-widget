@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A gentle check-in</title>
+
+  <!-- Privacy guard: this policy tells the browser to refuse ANY network
+       request to other sites (no fonts, scripts, trackers, images, fetch/XHR).
+       Only our own local files may load. Even a future mistake can't leak data. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="widget" id="widget">
+    <div id="stage" class="stage">
+      <noscript><p class="noscript">This check-in needs JavaScript to run. If you'd like to talk to someone, please get in touch using the contact details on this website.</p></noscript>
+    </div>
+    <div id="crisis" class="crisis"></div>
+  </div>
+
+  <!-- Invisible area that screen readers announce (e.g. "Breathing pause started") -->
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+
+  <!-- Order matters: settings and wording first, then the logic that uses them -->
+  <script src="js/config.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
