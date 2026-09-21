@@ -7,7 +7,7 @@
   /* Taken from lianedavidscounselling.co.uk: a black page, so the widget sits
      as pale cards on black, with the site's blue accent. All text pairs are
      at least 4.8:1 (AA needs 4.5:1); borders/controls are above 3:1. */
-  --color-bg: #000000;            /* page background around the cards (use "transparent" to blend in) */
+  --color-bg: transparent;        /* around the cards: transparent shows the Squarespace page behind the frame */
   --color-surface: #eaeaee;       /* cards (the site's pale grey) */
   --color-text: #111111;          /* main text */
   --color-muted: #4a4f57;         /* secondary text */
