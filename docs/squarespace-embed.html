@@ -2,13 +2,13 @@
      PASTE THIS INTO A SQUARESPACE CODE BLOCK
      (Edit the page > add a block > Code. Untick "Display Source".)
 
-     1. Replace YOUR-USERNAME and YOUR-REPO in BOTH places.
+     1. Replace barryedavids-prog and ldc-widget in BOTH places.
      2. Use /staging/ on your hidden test page, /prod/ on the live page.
      ================================================================== -->
 
 <iframe
   id="ldc-widget"
-  src="https://YOUR-USERNAME.github.io/YOUR-REPO/staging/"
+  src="https://barryedavids-prog.github.io/ldc-widget/staging/"
   title="A gentle check-in"
   style="width:100%; height:640px; border:0; display:block;"
   scrolling="no"
@@ -17,7 +17,7 @@
 <script>
 (function () {
   var frame = document.getElementById('ldc-widget');
-  var ORIGIN = 'https://YOUR-USERNAME.github.io';   // only trust messages from here
+  var ORIGIN = 'https://barryedavids-prog.github.io';   // only trust messages from here
 
   window.addEventListener('message', function (event) {
     if (event.origin !== ORIGIN) return;                 // ignore other sites
