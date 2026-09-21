@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local embed test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 46rem; margin: 2rem auto; padding: 0 1rem; }
+    .fake-page { border: 2px dashed #999; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Pretend Squarespace page</h1>
+  <p>This mimics the Squarespace Code Block locally so you can check auto-resizing.
+     Start the widget and watch the frame grow and shrink with no scrollbar.</p>
+  <div class="fake-page">
+    <!-- Same as docs/squarespace-embed.html, but pointing at the local server -->
+    <iframe id="ldc-widget" src="../staging/" title="A gentle check-in"
+            style="width:100%; height:640px; border:0; display:block;" scrolling="no"></iframe>
+  </div>
+  <p>Text below the widget: it should never be overlapped or pushed off screen.</p>
+
+  <script>
+  (function () {
+    var frame = document.getElementById('ldc-widget');
+    window.addEventListener('message', function (event) {
+      if (event.origin !== location.origin) return;
+      if (event.source !== frame.contentWindow) return;
+      var data = event.data;
+      if (!data || data.type !== 'ldc-widget-height') return;
+      var height = Number(data.height);
+      if (isFinite(height) && height > 0) frame.style.height = height + 'px';
+    });
+  })();
+  </script>
+</body>
+</html>

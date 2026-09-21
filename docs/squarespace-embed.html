@@ -1,0 +1,33 @@
+<!-- ===================================================================
+     PASTE THIS INTO A SQUARESPACE CODE BLOCK
+     (Edit the page > add a block > Code. Untick "Display Source".)
+
+     1. Replace YOUR-USERNAME and YOUR-REPO in BOTH places.
+     2. Use /staging/ on your hidden test page, /prod/ on the live page.
+     ================================================================== -->
+
+<iframe
+  id="ldc-widget"
+  src="https://YOUR-USERNAME.github.io/YOUR-REPO/staging/"
+  title="A gentle check-in"
+  style="width:100%; height:640px; border:0; display:block;"
+  scrolling="no"
+  loading="lazy"></iframe>
+
+<script>
+(function () {
+  var frame = document.getElementById('ldc-widget');
+  var ORIGIN = 'https://YOUR-USERNAME.github.io';   // only trust messages from here
+
+  window.addEventListener('message', function (event) {
+    if (event.origin !== ORIGIN) return;                 // ignore other sites
+    if (event.source !== frame.contentWindow) return;    // ignore other iframes
+    var data = event.data;
+    if (!data || data.type !== 'ldc-widget-height') return;
+    var height = Number(data.height);
+    if (isFinite(height) && height > 0) {
+      frame.style.height = height + 'px';                // resize: no scrollbars
+    }
+  });
+})();
+</script>
