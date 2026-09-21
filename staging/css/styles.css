@@ -4,19 +4,20 @@
    if you change colours, check pairs with e.g. webaim.org/resources/contrastchecker
    ========================================================================== */
 :root {
-  /* Taken from lianedavidscounselling.co.uk: black page, white text, blue accent.
-     Text pairs are all well above 4.5:1; borders/controls above 3:1. */
-  --color-bg: #000000;            /* page background (use "transparent" to blend in) */
-  --color-surface: #111111;       /* cards */
-  --color-text: #ffffff;          /* main text */
-  --color-muted: #c4c4cc;         /* secondary text */
-  --color-primary: #8eb6dc;       /* buttons, highlights (site's light blue accent) */
-  --color-primary-hover: #b3d0ea;
-  --color-on-primary: #000000;    /* text on primary buttons */
-  --color-soft: #1c2a38;          /* soft tinted panels (dark blue tint) */
-  --color-border: #8a8f96;        /* form control borders */
-  --color-line: #333a41;          /* decorative dividers */
-  --color-focus: #ffffff;         /* keyboard focus ring */
+  /* Taken from lianedavidscounselling.co.uk: a black page, so the widget sits
+     as pale cards on black, with the site's blue accent. All text pairs are
+     at least 4.8:1 (AA needs 4.5:1); borders/controls are above 3:1. */
+  --color-bg: #000000;            /* page background around the cards (use "transparent" to blend in) */
+  --color-surface: #eaeaee;       /* cards (the site's pale grey) */
+  --color-text: #111111;          /* main text */
+  --color-muted: #4a4f57;         /* secondary text */
+  --color-primary: #105f96;       /* buttons, highlights (a touch darker than the site's #1470af, which just misses AA) */
+  --color-primary-hover: #0b4a78;
+  --color-on-primary: #ffffff;    /* text on primary buttons */
+  --color-soft: #d3e4f3;          /* soft tinted panels (pale blue) */
+  --color-border: #6b7078;        /* form control borders */
+  --color-line: #c5c8cf;          /* decorative dividers */
+  --color-focus: #0b4a78;         /* keyboard focus ring */
 
   /* System fonts, as on the main site: nothing is downloaded, so no
      third-party consent needed. */
