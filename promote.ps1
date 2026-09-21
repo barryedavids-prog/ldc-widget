@@ -7,6 +7,8 @@
 #   3. Commits the result.
 # It does NOT push. Run `git push` yourself when you are happy.
 
+param([switch]$Yes)   # -Yes skips the confirmation question
+
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 
@@ -19,8 +21,10 @@ if (git status --porcelain staging) {
 
 $stagingCommit = (git log -1 --format=%h -- staging).Trim()
 Write-Host "About to copy staging (last changed in commit $stagingCommit) over prod."
-$answer = Read-Host "Continue? (y/n)"
-if ($answer -ne 'y') { Write-Host "Cancelled."; exit 0 }
+if (-not $Yes) {
+    $answer = Read-Host "Continue? (y/n)"
+    if ($answer -ne 'y') { Write-Host "Cancelled."; exit 0 }
+}
 
 # /MIR mirrors the folder: copies new/changed files AND removes files gone from staging
 robocopy staging prod /MIR /NFL /NDL /NJH /NJS /NP | Out-Null
