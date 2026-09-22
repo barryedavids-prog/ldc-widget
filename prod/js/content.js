@@ -142,8 +142,8 @@ window.LDC_CONTENT = {
   /* ---- Crisis support: shown on every screen, including every result.
      Please check these are still correct from time to time. ---- */
   crisis: {
-    heading: "If you need support right now",
-    intro: "This tool can't offer urgent help. If you're struggling or in crisis, please reach out:",
+    heading: "If you urgently need support right now",
+    intro: "Please contact one of the following:",
     services: [
       { name: "Samaritans", detail: "free, any time, day or night", phone: "116 123" },
       { name: "NHS 111",    detail: "for urgent help that isn't an emergency", phone: "111" },
