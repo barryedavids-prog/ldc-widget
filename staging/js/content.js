@@ -85,7 +85,7 @@ window.LDC_CONTENT = {
      Sometimes = 1, Often = 2, added up) at which that message is used. With six
      questions the total runs from 0 to 12. Keep the first one at 0. */
   results: {
-    reflectionsHeading: "Some things you told us",
+    reflectionsHeading: "Some things you told me",
     bands: [
       {
         minPoints: 0,
