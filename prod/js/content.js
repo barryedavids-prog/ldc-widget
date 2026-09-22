@@ -136,8 +136,7 @@ window.LDC_CONTENT = {
   cta: {
     heading: "If you'd like to talk",
     body: "A free introductory call is a chance to say hello, ask any questions and get a feel for whether working together could suit you. There's no pressure and no commitment.",
-    button: "Book a free introductory call",
-    opensInNewTab: "(opens in a new tab)"
+    button: "Book a free introductory session"
   },
 
   /* ---- Crisis support: shown on every screen, including every result.
