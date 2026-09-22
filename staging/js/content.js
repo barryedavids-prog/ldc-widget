@@ -12,6 +12,16 @@
 
 window.LDC_CONTENT = {
 
+  /* ---- Teaser (the small collapsed box, shown instead of the opening
+     screen when the widget starts collapsed - see config.js). Keep this
+     short: it's meant to declutter a busy page like the homepage. Clicking
+     the button reveals the opening screen below. ---- */
+  teaser: {
+    heading: "Not sure if counselling's right for you?",
+    body: "A short, private check-in can help you reflect on how things have been feeling lately. It takes about 2 minutes.",
+    button: "Start the check-in"
+  },
+
   /* ---- Opening screen ---- */
   intro: {
     title: "Take a moment to check in",

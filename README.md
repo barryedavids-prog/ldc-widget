@@ -28,6 +28,14 @@ double quote inside a sentence. The file's comments explain each section.
 
 The **booking link** is in `staging/js/config.js` (`bookingUrl`).
 
+**Collapsed teaser box:** for a busy page like the homepage, the widget can start
+as a small box with a short question and a button, expanding to the full check-in
+when clicked (crisis/safety links appear once expanded, not on the collapsed box).
+Wording is `content.js` (`teaser`). Turn it on for every embed by setting
+`config.js` (`startCollapsed: true`), or per embed by adding `?start=collapsed`
+(or `?start=open` to force it off) to the end of the iframe's `src` URL in
+`docs/squarespace-embed.html`.
+
 **Brand colours and fonts:** the variables at the top of `staging/css/styles.css`.
 Check text/background pairs stay readable (4.5:1 contrast) with a contrast checker.
 Fonts are system fonts on purpose: a font loaded from Google Fonts or Squarespace

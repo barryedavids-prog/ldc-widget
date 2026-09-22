@@ -62,6 +62,21 @@
 
   /* ---------- Screens ---------- */
 
+  function showTeaser() {
+    var T = C.teaser;
+    var card = el('section', 'card teaser');
+    var h = el('h1', null, T.heading);
+    card.appendChild(h);
+    card.appendChild(el('p', null, T.body));
+    var row = el('div', 'btn-row');
+    row.appendChild(button(T.button, 'btn', function () {
+      ensureCrisis();
+      showIntro();
+    }));
+    card.appendChild(row);
+    show(card, h);
+  }
+
   function showIntro() {
     var card = el('section', 'card');
     var h = el('h1', null, C.intro.title);
@@ -277,7 +292,16 @@
     return panel;
   }
 
-  /* ---------- Crisis support (always visible, on every screen) ---------- */
+  /* ---------- Crisis support (always visible, on every screen except the
+     collapsed teaser) ---------- */
+
+  var crisisRendered = false;
+  function ensureCrisis() {
+    if (crisisRendered) return;
+    crisisRendered = true;
+    renderCrisis();
+    crisisBox.hidden = false;
+  }
 
   function renderCrisis() {
     var X = C.crisis;
@@ -324,8 +348,19 @@
   window.addEventListener('load', postHeight);
   window.addEventListener('resize', postHeight);
 
-  /* ---------- Go ---------- */
-  renderCrisis();
-  showIntro();
+  /* ---------- Go ----------
+     Starts collapsed to the small teaser box if CFG.startCollapsed is true,
+     or if this embed's src URL has ?start=collapsed (which also overrides
+     CFG.startCollapsed to false via ?start=open). The teaser itself carries
+     no crisis info; ensureCrisis() runs as soon as it's expanded. */
+  var startParam = new URLSearchParams(window.location.search).get('start');
+  var startCollapsed = startParam ? startParam === 'collapsed' : !!CFG.startCollapsed;
+
+  if (startCollapsed) {
+    showTeaser();
+  } else {
+    ensureCrisis();
+    showIntro();
+  }
   postHeight();
 })();

@@ -81,6 +81,9 @@ p  { margin: 0 0 1rem; }
 .muted { color: var(--color-muted); }
 .small { font-size: 0.9375rem; }
 
+.teaser { text-align: center; }
+.teaser .btn-row { justify-content: center; }
+
 .privacy-note {
   background: var(--color-soft);
   border-radius: 10px;
