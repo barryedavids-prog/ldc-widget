@@ -4,22 +4,25 @@
    if you change colours, check pairs with e.g. webaim.org/resources/contrastchecker
    ========================================================================== */
 :root {
-  --color-bg: #f7f5f0;            /* page background (use "transparent" to blend in) */
-  --color-surface: #ffffff;       /* cards */
-  --color-text: #24332f;          /* main text */
-  --color-muted: #566461;         /* secondary text */
-  --color-primary: #2f6f6a;       /* buttons, highlights */
-  --color-primary-hover: #245853;
+  /* Taken from lianedavidscounselling.co.uk: a black page, so the widget sits
+     as pale cards on black, with the site's blue accent. All text pairs are
+     at least 4.8:1 (AA needs 4.5:1); borders/controls are above 3:1. */
+  --color-bg: transparent;        /* around the cards: transparent shows the Squarespace page behind the frame */
+  --color-surface: #eaeaee;       /* cards (the site's pale grey) */
+  --color-text: #111111;          /* main text */
+  --color-muted: #4a4f57;         /* secondary text */
+  --color-primary: #105f96;       /* buttons, highlights (a touch darker than the site's #1470af, which just misses AA) */
+  --color-primary-hover: #0b4a78;
   --color-on-primary: #ffffff;    /* text on primary buttons */
-  --color-soft: #e3efec;          /* soft tinted panels */
-  --color-border: #7d8c88;        /* form control borders (3:1 vs white) */
-  --color-line: #d9dfdc;          /* decorative dividers */
-  --color-focus: #1a4fa0;         /* keyboard focus ring */
+  --color-soft: #d3e4f3;          /* soft tinted panels (pale blue) */
+  --color-border: #6b7078;        /* form control borders */
+  --color-line: #c5c8cf;          /* decorative dividers */
+  --color-focus: #0b4a78;         /* keyboard focus ring */
 
-  /* System fonts: nothing is downloaded, so no third-party consent needed.
-     To match the site font exactly it would have to be self-hosted here. */
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-heading: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  /* System fonts, as on the main site: nothing is downloaded, so no
+     third-party consent needed. */
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: Verdana, Geneva, sans-serif;
 
   --radius: 14px;
   --max-width: 40rem;
@@ -53,9 +56,9 @@ h1, h2, h3 {
   line-height: 1.25;
   margin: 0 0 0.75rem;
 }
-h1 { font-size: 1.75rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.2rem; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
 p  { margin: 0 0 1rem; }
 
 /* Headings receive focus when a screen changes (for screen readers);
@@ -77,6 +80,9 @@ p  { margin: 0 0 1rem; }
 
 .muted { color: var(--color-muted); }
 .small { font-size: 0.9375rem; }
+
+.teaser { text-align: center; }
+.teaser .btn-row { justify-content: center; }
 
 .privacy-note {
   background: var(--color-soft);
@@ -125,7 +131,7 @@ a:focus-visible, button:focus-visible, .option:has(input:focus-visible) {
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 legend { padding: 0; margin-bottom: 1rem; }
 .q-prompt { display: block; font-size: 0.9375rem; color: var(--color-muted); margin-bottom: 0.35rem; }
-.q-statement { display: block; font-family: var(--font-heading); font-size: 1.35rem; line-height: 1.35; }
+.q-statement { display: block; font-family: var(--font-heading); font-size: 1.2rem; line-height: 1.4; }
 
 .option {
   display: flex;
@@ -199,7 +205,7 @@ legend { padding: 0; margin-bottom: 1rem; }
 @media (min-width: 40em) {
   .widget { padding: 1.5rem; }
   .card { padding: 2rem; }
-  h1 { font-size: 2rem; }
+  h1 { font-size: 1.85rem; }
 }
 
 /* ---------- Reduced motion ----------

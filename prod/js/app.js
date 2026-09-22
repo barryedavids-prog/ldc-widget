@@ -62,6 +62,21 @@
 
   /* ---------- Screens ---------- */
 
+  function showTeaser() {
+    var T = C.teaser;
+    var card = el('section', 'card teaser');
+    var h = el('h1', null, T.heading);
+    card.appendChild(h);
+    card.appendChild(el('p', null, T.body));
+    var row = el('div', 'btn-row');
+    row.appendChild(button(T.button, 'btn', function () {
+      ensureCrisis();
+      showIntro();
+    }));
+    card.appendChild(row);
+    show(card, h);
+  }
+
   function showIntro() {
     var card = el('section', 'card');
     var h = el('h1', null, C.intro.title);
@@ -277,7 +292,16 @@
     return panel;
   }
 
-  /* ---------- Crisis support (always visible, on every screen) ---------- */
+  /* ---------- Crisis support (always visible, on every screen except the
+     collapsed teaser) ---------- */
+
+  var crisisRendered = false;
+  function ensureCrisis() {
+    if (crisisRendered) return;
+    crisisRendered = true;
+    renderCrisis();
+    crisisBox.hidden = false;
+  }
 
   function renderCrisis() {
     var X = C.crisis;
@@ -290,7 +314,9 @@
     var ul = el('ul');
     X.services.forEach(function (s) {
       var li = el('li');
-      var a = el('a', null, s.name + ' ' + s.phone);
+      /* "NHS 111" and "999" already contain their number, so don't repeat it */
+      var linkText = s.name.indexOf(s.phone) === -1 ? s.name + ' ' + s.phone : s.name;
+      var a = el('a', null, linkText);
       a.href = 'tel:' + s.phone.replace(/\s+/g, '');
       li.appendChild(a);
       li.appendChild(document.createTextNode(': ' + s.detail));
@@ -322,8 +348,19 @@
   window.addEventListener('load', postHeight);
   window.addEventListener('resize', postHeight);
 
-  /* ---------- Go ---------- */
-  renderCrisis();
-  showIntro();
+  /* ---------- Go ----------
+     Starts collapsed to the small teaser box if CFG.startCollapsed is true,
+     or if this embed's src URL has ?start=collapsed (which also overrides
+     CFG.startCollapsed to false via ?start=open). The teaser itself carries
+     no crisis info; ensureCrisis() runs as soon as it's expanded. */
+  var startParam = new URLSearchParams(window.location.search).get('start');
+  var startCollapsed = startParam ? startParam === 'collapsed' : !!CFG.startCollapsed;
+
+  if (startCollapsed) {
+    showTeaser();
+  } else {
+    ensureCrisis();
+    showIntro();
+  }
   postHeight();
 })();

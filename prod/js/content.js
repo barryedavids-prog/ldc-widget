@@ -12,12 +12,22 @@
 
 window.LDC_CONTENT = {
 
+  /* ---- Teaser (the small collapsed box, shown instead of the opening
+     screen when the widget starts collapsed - see config.js). Keep this
+     short: it's meant to declutter a busy page like the homepage. Clicking
+     the button reveals the opening screen below. ---- */
+  teaser: {
+    heading: "Not sure if counselling's right for you?",
+    body: "A short, private check-in can help you reflect on how things have been feeling lately. It takes about 2 minutes.",
+    button: "Start the check-in"
+  },
+
   /* ---- Opening screen ---- */
   intro: {
-    title: "Taking a moment to check in",
+    title: "Take a moment to check in",
     body: [
-      "Life can be a lot sometimes. This is a short, gentle reflection to help you notice how you've been feeling lately.",
-      "It isn't a test or an assessment, there are no right or wrong answers, and it takes about two minutes."
+      "Life can feel 'a lot' sometimes.",
+      "This isn't a test. There are no right or wrong answers. It takes about 2 minutes to do."
     ],
     privacy: "Everything stays on your device. Nothing you choose here is saved, sent or tracked.",
     startButton: "Begin"
@@ -30,13 +40,13 @@ window.LDC_CONTENT = {
      visitor felt this statement was true for them.
      You can add, remove or reorder questions freely (about 5 to 8 works well). */
   questions: {
-    prompt: "Lately, how true does this feel for you?",
+    prompt: "In the last 2 weeks, how true does this feel for you?",
     options: [
       { label: "Not really", points: 0 },
       { label: "Sometimes",  points: 1 },
       { label: "Often",      points: 2 }
     ],
-    unansweredHint: "Choose whichever feels closest. There's no wrong answer.",
+    unansweredHint: "There is no right or wrong answer",
     items: [
       {
         statement: "I've been feeling overwhelmed or stretched thin.",
@@ -115,7 +125,7 @@ window.LDC_CONTENT = {
     againButton: "Do it again",
     breatheIn: "Breathe in…",
     breatheOut: "Breathe out…",
-    done: "Well done. Notice how you feel now.",
+    done: "Notice how you feel now.",
     stopped: "That's fine. You can come back to this whenever you like.",
     /* Read out by screen readers */
     announceStart: "Breathing pause started.",
