@@ -208,11 +208,9 @@
     var cta = el('div', 'panel');
     cta.appendChild(el('h3', null, C.cta.heading));
     cta.appendChild(el('p', null, C.cta.body));
-    var link = el('a', 'btn', C.cta.button + ' ');
+    var link = el('a', 'btn', C.cta.button);
     link.href = CFG.bookingUrl;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.appendChild(el('span', 'sr-only', C.cta.opensInNewTab));
+    link.target = '_top';
     cta.appendChild(link);
     card.appendChild(cta);
 
