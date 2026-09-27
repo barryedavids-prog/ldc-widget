@@ -1,6 +1,7 @@
 /* ==========================================================================
    App logic. Reads wording from LDC_CONTENT and settings from LDC_CONFIG.
-   Runs entirely in the browser: no storage, no network requests.
+   Runs entirely in the browser: no storage. The only network requests are the
+   anonymous usage counts (see count() below), and only if switched on.
    ========================================================================== */
 (function () {
   'use strict';
@@ -40,6 +41,33 @@
     lines.forEach(function (line) { container.appendChild(el('p', className, line)); });
   }
 
+  /* ---------- Anonymous usage counts ----------
+     Records how far visits get (started, which question, finished, breathing,
+     links). Never which answers were chosen, and nothing that identifies the
+     visitor: no cookies, no storage, no IDs. Each event counts at most once per
+     visit, so the totals read as "how many visits got this far". Only the live
+     /prod/ copy sends; anywhere else the event is just written to the console. */
+  var counted = {};
+  var countingLive = !!CFG.goatcounterCode && /\/prod\//.test(window.location.pathname);
+
+  function count(event) {
+    if (counted[event]) return;
+    counted[event] = true;
+    if (!countingLive) {
+      if (window.console) console.log('[ldc count] ' + event);
+      return;
+    }
+    var url = 'https://' + encodeURIComponent(CFG.goatcounterCode) + '.goatcounter.com/count' +
+      '?e=true&p=' + encodeURIComponent(event) + '&t=' + encodeURIComponent(event) +
+      '&rnd=' + Math.random().toString(36).slice(2);
+    /* sendBeacon still delivers if the visitor is leaving the page (e.g. the
+       booking link); fall back to a tiny image request if it's unavailable. */
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url)) return;
+    } catch (e) { /* fall through */ }
+    new Image().src = url;
+  }
+
   function announce(message) {
     announcer.textContent = '';
     // A tiny delay makes screen readers reliably notice the change
@@ -70,6 +98,7 @@
     card.appendChild(el('p', null, T.body));
     var row = el('div', 'btn-row');
     row.appendChild(button(T.button, 'btn', function () {
+      count('teaser-opened');
       ensureCrisis();
       showIntro();
     }));
@@ -84,7 +113,10 @@
     paragraphs(card, C.intro.body);
     card.appendChild(el('p', 'privacy-note', C.intro.privacy));
     var row = el('div', 'btn-row');
-    row.appendChild(button(C.intro.startButton, 'btn', function () { showQuestion(0); }));
+    row.appendChild(button(C.intro.startButton, 'btn', function () {
+      count('started');
+      showQuestion(0);
+    }));
     card.appendChild(row);
     show(card, h);
   }
@@ -93,6 +125,7 @@
     var Q = C.questions;
     var total = questions.length;
     var card = el('section', 'card');
+    count('question-' + (i + 1));
 
     var progressText = Q.progressLabel
       .replace('{current}', i + 1)
@@ -186,6 +219,7 @@
   }
 
   function showResults() {
+    count('finished');
     var band = pickBand(totalPoints());
     var R = C.results;
     var card = el('section', 'card');
@@ -211,6 +245,7 @@
     var link = el('a', 'btn', C.cta.button);
     link.href = CFG.bookingUrl;
     link.target = '_top';
+    link.addEventListener('click', function () { count('booking-clicked'); });
     cta.appendChild(link);
     card.appendChild(cta);
 
@@ -218,6 +253,7 @@
 
     var row = el('div', 'btn-row');
     row.appendChild(button(R.restartButton, 'btn btn-secondary', function () {
+      count('restarted');
       answers = [];
       showIntro();
     }));
@@ -260,6 +296,7 @@
       startBtn.hidden = true;
       stageBox.hidden = false;
       stopBtn.hidden = false;
+      count('breathing-started');
       announce(B.announceStart);
       step(0, true);
       postHeight();
@@ -283,7 +320,10 @@
       stopBtn.hidden = true;
       startBtn.textContent = B.againButton;
       startBtn.hidden = false;
-      if (completed) announce(B.announceDone);
+      if (completed) {
+        count('breathing-completed');
+        announce(B.announceDone);
+      }
       postHeight();
     }
 
@@ -316,6 +356,8 @@
       var linkText = s.name.indexOf(s.phone) === -1 ? s.name + ' ' + s.phone : s.name;
       var a = el('a', null, linkText);
       a.href = 'tel:' + s.phone.replace(/\s+/g, '');
+      var eventName = 'crisis-' + s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-clicked';
+      a.addEventListener('click', function () { count(eventName); });
       li.appendChild(a);
       li.appendChild(document.createTextNode(': ' + s.detail));
       ul.appendChild(li);
@@ -354,6 +396,7 @@
   var startParam = new URLSearchParams(window.location.search).get('start');
   var startCollapsed = startParam ? startParam === 'collapsed' : !!CFG.startCollapsed;
 
+  count(startCollapsed ? 'viewed-teaser' : 'viewed');
   if (startCollapsed) {
     showTeaser();
   } else {
