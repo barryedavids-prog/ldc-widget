@@ -29,7 +29,7 @@ window.LDC_CONTENT = {
       "Life can feel 'a lot' sometimes.",
       "This isn't a test. There are no right or wrong answers. It takes about 2 minutes to do."
     ],
-    privacy: "Everything stays on your device. Nothing you choose here is saved, sent or tracked.",
+    privacy: "Your answers stay on your device. Nothing you choose here is saved or sent. We only count anonymous totals, like how many people finish, to help improve this check-in.",
     startButton: "Begin"
   },
 

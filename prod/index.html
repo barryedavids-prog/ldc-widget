@@ -7,9 +7,11 @@
 
   <!-- Privacy guard: this policy tells the browser to refuse ANY network
        request to other sites (no fonts, scripts, trackers, images, fetch/XHR).
-       Only our own local files may load. Even a future mistake can't leak data. -->
+       Only our own local files may load. The one exception is GoatCounter,
+       which receives the anonymous usage counts (see config.js) and nothing
+       else. Even a future mistake can't send data anywhere other than that. -->
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.goatcounter.com; connect-src https://*.goatcounter.com; base-uri 'none'; form-action 'none'">
 
   <link rel="stylesheet" href="css/styles.css">
 </head>

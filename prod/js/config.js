@@ -22,5 +22,15 @@ window.LDC_CONFIG = {
      This can be overridden per embed without changing this file, by adding
      ?start=collapsed or ?start=open to the iframe's src URL in
      docs/squarespace-embed.html. */
-  startCollapsed: false
+  startCollapsed: false,
+
+  /* Anonymous usage counts: how many visits open the check-in, how far they
+     get, whether they finish, try the breathing pause or click a link.
+     Never which answers were chosen, and nothing about who the visitor is.
+     Uses GoatCounter (goatcounter.com): no cookies, nothing stored on the
+     visitor's device. To switch it on, put your GoatCounter code here (the
+     "yourcode" part of yourcode.goatcounter.com). Leave it "" to switch it off.
+     Only the live /prod/ copy sends counts, so testing staging doesn't muddy
+     the numbers (staging just lists them in the browser console instead). */
+  goatcounterCode: "barrydavids"
 };
